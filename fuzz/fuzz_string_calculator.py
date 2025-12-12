@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../src"))
 import atheris
 # プロジェクトのディレクトリ構成に合わせてインポート
 from calculator.string_calculator import StringCalculator, InvalidExpressionException
-from calculator.calculator import InvalidInputException # 親クラスのエラーもキャッチするためにインポート
+from calculator.calculator import InvalidInputException
 
 # 実行回数をカウントするためのグローバル変数
 TEST_COUNT = 0
@@ -21,8 +21,9 @@ def TestOneInput(data):
    # ランダムなデータを生成するプロバイダを作成
    fdp = atheris.FuzzedDataProvider(data)
     
-   # ランダムな文字列（式）を取得 (最大1024バイトのUnicode文字列)
-   expression = fdp.ConsumeUnicodeString(1024)
+   # 修正: ConsumeUnicodeString(1024) -> ConsumeString(1024)
+   # ランダムな文字列（式）を取得 (最大1024バイトの文字列)
+   expression = fdp.ConsumeString(1024)
     
    calc = StringCalculator()
 
