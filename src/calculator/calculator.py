@@ -80,7 +80,7 @@ class Calculator:
         """
         a を b で割った余りを返す
         """
-        if b == 0:
-            raise ValueError("Cannot divide by zero")
+        # if b == 0:
+        #     raise ValueError("Cannot divide by zero")
         return a % b
 
