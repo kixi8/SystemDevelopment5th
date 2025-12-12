@@ -24,8 +24,8 @@ jobs:
         run: |
           mkdir -p corpus
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          # クラッシュしてもワークフローを成功扱いにして次へ進む (|| true)
-          python fuzz/fuzz_target.py corpus -max_total_time=300 || true
+          # 修正: python fuzz/fuzz_target.py から python fuzz/fuzz_calculator.py に変更
+          python fuzz/fuzz_calculator.py corpus -max_total_time=300 || true
 
       # 2. カバレッジ計測
       - name: Coverage Collection
