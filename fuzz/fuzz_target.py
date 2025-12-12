@@ -36,9 +36,15 @@ def TestOneInput(data):
       # 0除算や入力範囲外のエラーは仕様通りなので無視
       pass
    except Exception as e:
+      # クラッシュ時の入力値を表示してから例外を再送出
+      print(f"\n=== CRASH DETECTED ===")
+      print(f"val_a: {val_a}")
+      print(f"val_b: {val_b}")
+      print(f"op   : {op}")
+      print(f"======================")
+        
       # それ以外の予期せぬエラーは「クラッシュ」として報告
       raise e
-
 if __name__ == "__main__":
    # 計測の設定をしてFuzzerを起動
    atheris.instrument_all()
