@@ -8,7 +8,14 @@ import atheris
 # プロジェクトのディレクトリ構成に合わせてインポート
 from calculator.calculator import Calculator, InvalidInputException
 
+# 追記: 実行回数をカウントするためのグローバル変数
+TEST_COUNT = 0
+
 def TestOneInput(data):
+   # 追記: グローバル変数にアクセスし、カウントをインクリメント
+   global TEST_COUNT
+   TEST_COUNT += 1
+    
    # ランダムなデータを生成するプロバイダを作成
    fdp = atheris.FuzzedDataProvider(data)
     
@@ -38,6 +45,8 @@ def TestOneInput(data):
    except Exception as e:
       # クラッシュ時の入力値を表示してから例外を再送出
       print(f"\n=== CRASH DETECTED ===")
+      # 追記: 実行回数を出力
+      print(f"Test Count: {TEST_COUNT}")
       print(f"val_a: {val_a}")
       print(f"val_b: {val_b}")
       print(f"op   : {op}")
