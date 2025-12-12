@@ -51,6 +51,7 @@ def TestOneInput(data):
       print(f"val_b: {val_b}")
       print(f"op   : {op}")
       print(f"======================")
+      print(f"Unexpected exception💥: {e} 😱")
         
       # それ以外の予期せぬエラーは「クラッシュ」として報告
       raise e
