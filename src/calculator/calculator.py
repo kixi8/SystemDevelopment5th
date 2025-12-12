@@ -76,7 +76,9 @@ class Calculator:
             raise ValueError("Cannot divide by zero")
         return a / b
 
-
-
-
+    def modulo(self, a, b):
+            """
+            a を b で割った余りを返す
+            """
+            return a % b
 
