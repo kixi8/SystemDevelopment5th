@@ -43,8 +43,8 @@ class StringCalculator:
         # IndexError の脆弱性を残す
         parts = expression.split()
 
-        # if len(parts) != 3: # ← 意図的に省略
-        #     raise InvalidExpressionException(f"Invalid expression format: {expression}")
+        if len(parts) != 3: # ← 意図的に省略
+            raise InvalidExpressionException(f"Invalid expression format: {expression}")
 
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
         try:
