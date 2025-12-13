@@ -36,7 +36,7 @@ SystemDevelopment5th/fuzz/fuzz_calculator.py のようにprintを追加するこ
 
 5. Task
 fuzz/fuzz_string_calculator.pyもテストできるようにしてみよう
-
+fuzz/repro_coverage.pyこれも変更忘れないように
 
 
 6. Answer of task
