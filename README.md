@@ -9,15 +9,29 @@ This Calculator can handle the values up to 1000000 (Not implemented yet on purp
 
 ## Installation
 
-1. Fork and Clone the repository:
-```bash
+1. Fork the repository:
+<!-- ```bash
 git clone https://github.com/Yutaro-Kashiwa/SystemDevelopment5th.git
 cd SystemDevelopment5th
-```
+``` -->
+Fork
 
-2. 
+
+2. Actionsに移動して実行してみよう
+画像が出ると思うので，「I understand my workflows, go ahead and enable them」を選んでください．
+
+「Python Atheris Fuzzing」をクリックし，「Run workflow」を押してActionsを手動実行
 
 <!--  -->
+
+
+# おまけ
+## カバレッジレポートの生成方法
+ここでのカバレッジは新しいコードパスを取得した際の入力値のみを表示している．
+<!-- Yamlの追記コードを説明 -->
+
+## コーパスの取得
+ここでのコーパスは，新しいコードパスを取得した際の入力値のみが保存される．そのため，実際にはもっとたくさんの入力値が実行されている．
 
 
 ## Usage
