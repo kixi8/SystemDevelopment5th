@@ -74,5 +74,5 @@ class StringCalculator:
             # 意図的な不完全性/バグ: モジュロ演算の引数に対する型チェック（整数であるべきかなど）を省略
             # また、Calculator側での実装が意図的に不完全である可能性も考慮する
             return self.calc.modulo(a, b)
-        else:
-            raise InvalidExpressionException(f"Unsupported operator: {op}")
+        # else:
+        #     raise InvalidExpressionException(f"Unsupported operator: {op}")
