@@ -12,6 +12,9 @@ class InvalidExpressionException(Exception):
     """Exception raised when the string expression is invalid."""
     pass
 
+class ImproperErrorHandlingException(Exception):
+    """Exception raised when error handling is improperly implemented."""
+    pass
 
 class StringCalculator:
     """Processes simple expressions like 'a + b', 'a - b', etc."""
@@ -44,8 +47,8 @@ class StringCalculator:
         parts = expression.split()
 
         # fixed: 要素数チェックを追加
-        if len(parts) != 3:
-            raise InvalidExpressionException("Expression must be in the format: 'a op b'.")
+        # if len(parts) != 3:
+        #     raise InvalidExpressionException("Expression must be in the format: 'a op b'.")
 
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
         try:
@@ -55,10 +58,10 @@ class StringCalculator:
             b = float(parts[2])
         except ValueError:
             # 意図的な型チェック漏れ: 'a', 'b' のいずれかが float に変換できない場合に発生
-            raise InvalidExpressionException("Operands must be valid numbers.")
+            raise ImproperErrorHandlingException("Operands must be valid numbers.")
         except IndexError:
             # parts の要素数が足りない場合に発生。本来なら InvalidExpressionException でラップすべき。
-            raise InvalidExpressionException("Incomplete expression.")
+            raise ImproperErrorHandlingException("Incomplete expression.")
 
         # 演算子の実行 (意図的な数値の大きさチェック漏れ: Calculator側に依存するが、
         # StringCalculator側でオペランドの妥当性（例: 巨大な数）をチェックすべき)

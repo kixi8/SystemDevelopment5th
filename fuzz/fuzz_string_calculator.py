@@ -31,8 +31,8 @@ def TestOneInput(data):
       # StringCalculatorのcalculateメソッドを実行
       calc.calculate(expression)
       
-   except InvalidExpressionException:
-      pass
+   # except InvalidExpressionException:
+   #    pass
    
    # except (InvalidInputException, InvalidExpressionException):
       # InvalidExpressionException: 
