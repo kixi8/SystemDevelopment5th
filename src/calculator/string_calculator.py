@@ -1,82 +1,49 @@
-# string_calculator.py
+# src/calculator/string_calculator.py
 
-"""
-A string-based calculator module that processes simple arithmetic expressions.
-NOTE: This implementation is intentionally incomplete/buggy for educational purposes,
-      specifically lacking robustness against Index/Type/Size errors.
-"""
-from .calculator import Calculator, InvalidInputException
-
+from calculator.calculator import Calculator
 
 class InvalidExpressionException(Exception):
-    """Exception raised when the string expression is invalid."""
-    pass
-
-class ImproperErrorHandlingException(Exception):
-    """Exception raised when error handling is improperly implemented."""
+    """Raised when the expression format is invalid."""
     pass
 
 class StringCalculator:
-    """Processes simple expressions like 'a + b', 'a - b', etc."""
-
     def __init__(self):
         self.calc = Calculator()
 
-    def calculate(self, expression: str):
+    def calculate(self, expression: str) -> float:
         """
-        Parses and calculates a simple expression (e.g., "5 + 3").
-        
-        Args:
-            expression: The arithmetic expression string.
-
-        Returns:
-            The result of the calculation.
-
-        Raises:
-            InvalidExpressionException: If the expression is not in a supported format, 
-                                        or if operands are invalid.
-            ValueError: For division by zero.
-            IndexError: 配列アクセスに失敗した場合（意図的にチェックを省略）。
-            InvalidInputException: If operands are outside the valid range.
+        文字列の数式を受け取り、計算結果を返す
+        Format: "Number Operator Number" (例: "10 + 2.5")
         """
         
+        # Bug 1: 入力が空、あるいは区切り文字がない場合に IndexError (またはAttributeError) が発生する
+        # Fuzzerは "123" や "" といった入力を生成し、ここでクラッシュさせる
+        parts = expression.split(" ")
         
-        # 意図的なバグ/チェック漏れ: .strip() を省略し、前後の空白に弱い
-        # cleaned_expression = expression.strip() # ← 意図的に省略
+        # Bug 2: 数値変換失敗時に ValueError が発生する
+        # calculator.py の仕様上、ValueError は「0除算」用．
+        # ここでのパースエラー(ValueError)をキャッチしないと、
+        # Fuzzerの設定(ValueErrorを無視)によってはバグが見過ごされる、
+        # あるいは意図しないクラッシュとして扱われる可能性がある．
+        val_a = float(parts[0])
+        op = parts[1]
+        val_b = float(parts[2])
 
-        
-        parts = expression.split()
-
-        # fixed: 要素数チェックを追加
-        if len(parts) != 3:
-            raise InvalidExpressionException("Expression must be in the format: 'a op b'.")
-
-
-        # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
-        try:
-            a = float(parts[0])
-            b = float(parts[2])
-            op = parts[1]
-        except ValueError:
-            # 意図的な型チェック漏れ: 'a', 'b' のいずれかが float に変換できない場合に発生
-            raise ImproperErrorHandlingException("Operands must be valid numbers.")
-        except IndexError:
-            # parts の要素数が足りない場合に発生。本来なら InvalidExpressionException でラップすべき。
-            raise ImproperErrorHandlingException("Incomplete expression.")
-
-        # 演算子の実行 (意図的な数値の大きさチェック漏れ: Calculator側に依存するが、
-        # StringCalculator側でオペランドの妥当性（例: 巨大な数）をチェックすべき)
+        # 分かりやすい if-elif 構造に変更
         if op == '+':
-            return self.calc.add(a, b)
+            return self.calc.add(val_a, val_b)
         elif op == '-':
-            return self.calc.subtract(a, b)
+            return self.calc.subtract(val_a, val_b)
         elif op == '*':
-            return self.calc.multiply(a, b)
+            return self.calc.multiply(val_a, val_b)
         elif op == '/':
-            return self.calc.divide(a, b)
+            return self.calc.divide(val_a, val_b)
         elif op == '%':
-            # 意図的な不完全性/バグ: モジュロ演算の引数に対する型チェック（整数であるべきかなど）を省略
-            # また、Calculator側での実装が意図的に不完全である可能性も考慮する
-            return self.calc.modulo(a, b)
+            # 意図的な不完全性: モジュロ演算の実装．
+            # Calculator側で実装されていれば動くが、入力値によってはエラーになる可能性がある
+            return self.calc.modulo(val_a, val_b)
         else:
-            raise InvalidExpressionException(f"Unsupported operator: {op}")
+            # Bug 3: 未対応の演算子が来た場合に生の Exception を投げる
+            # これは "Uncaught Exception" としてFuzzerにクラッシュ判定される．
+            # 本来は InvalidExpressionException にラップすべき箇所．
+            raise Exception(f"System Error: Unsupported operator '{op}'")
