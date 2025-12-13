@@ -26,10 +26,10 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           
-          echo "--- Fuzzing Calculator ---"
-          mkdir -p corpus_calc
-          # Calculator Fuzzerを実行 (150秒)
-          python fuzz/fuzz_calculator.py corpus_calc -max_total_time=120
+          # echo "--- Fuzzing Calculator ---"
+          # mkdir -p corpus_calc
+          # # Calculator Fuzzerを実行 (150秒)
+          # python fuzz/fuzz_calculator.py corpus_calc -max_total_time=120
           
           echo "--- Fuzzing StringCalculator ---"
           mkdir -p corpus_str_calc

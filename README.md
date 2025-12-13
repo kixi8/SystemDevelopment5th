@@ -157,7 +157,7 @@ View the HTML report:
 ```bash
 open htmlcov/index.html
 ```
-
+<!-- 
 ## Project Structure
 
 ```
@@ -245,4 +245,4 @@ Contributions are welcome! Please ensure:
 
 Yutaro Kashiwa
 
-
+ -->
