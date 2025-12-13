@@ -36,8 +36,8 @@ def TestOneInput(data):
    #    pass
    except (InvalidExpressionException):
       pass
-   except (ValueError):
-      pass
+   # except (ValueError):
+   #    pass
    except Exception as e:
       # クラッシュ時の入力値（式）を表示してから例外を再送出
       print(f"\n=== CRASH DETECTED IN STRING_CALCULATOR ===")
