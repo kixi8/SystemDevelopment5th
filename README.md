@@ -34,7 +34,21 @@ src/calculator/calculator.py
 SystemDevelopment5th/fuzz/fuzz_calculator.py のようにprintを追加することでデバッグもどきができる
 
 
-5. 
+5. Task
+fuzz/fuzz_string_calculator.pyもテストできるようにしてみよう
+
+
+
+6. Answer of task
+          echo "--- Fuzzing StringCalculator ---"
+          mkdir -p corpus_str_calc
+          # StringCalculator Fuzzerを実行 (1200秒)
+          python fuzz/fuzz_string_calculator.py corpus_str_calc -max_total_time=600
+
+
+
+
+
 
 # おまけ
 ## カバレッジレポートの生成方法
