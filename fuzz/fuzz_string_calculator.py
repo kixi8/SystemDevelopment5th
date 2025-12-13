@@ -30,7 +30,10 @@ def TestOneInput(data):
    try:
       # StringCalculatorのcalculateメソッドを実行
       calc.calculate(expression)
-            
+      
+   except InvalidExpressionException:
+      pass
+   
    # except (InvalidInputException, InvalidExpressionException):
       # InvalidExpressionException: 
       # 1. 不正な式形式（要素数が3ではない、修正前）
