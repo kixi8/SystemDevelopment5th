@@ -2,7 +2,7 @@ import sys
 import os
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../src"))
-from fuzz_string_calculator import TestOneInput
+from fuzz_calculator import TestOneInput
 
 def run_corpus(corpus_dir):
     if not os.path.exists(corpus_dir):
