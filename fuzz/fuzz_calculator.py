@@ -36,8 +36,8 @@ def TestOneInput(data):
          calc.multiply(val_a, val_b)
       elif op == 3:
          calc.divide(val_a, val_b)
-      elif op == 4:
-         calc.modulo(val_a, val_b)
+      # TODO: Implement modulo operation
+
             
    except (ValueError, InvalidInputException):
       # 0除算や入力範囲外のエラーは仕様通りなので無視

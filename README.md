@@ -22,7 +22,8 @@ Fork
 
 「Python Atheris Fuzzing」をクリックし，「Run workflow」を押してActionsを手動実行
 
-<!--  -->
+3. ログを見てみる
+
 
 
 # おまけ
