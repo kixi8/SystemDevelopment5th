@@ -31,9 +31,9 @@ def TestOneInput(data):
       # StringCalculatorのcalculateメソッドを実行
       calc.calculate(expression)
             
-   except (ValueError, InvalidInputException, InvalidExpressionException):
-      # 0除算、入力範囲外、不正な式形式のエラーは仕様通りなので無視
-      pass
+   # except (ValueError, InvalidInputException, InvalidExpressionException):
+   #    # 0除算、入力範囲外、不正な式形式のエラーは仕様通りなので無視
+   #    pass
    except Exception as e:
       # クラッシュ時の入力値（式）を表示してから例外を再送出
       print(f"\n=== CRASH DETECTED IN STRING_CALCULATOR ===")
