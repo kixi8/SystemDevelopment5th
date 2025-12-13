@@ -29,10 +29,54 @@ Fork
 ## カバレッジレポートの生成方法
 ここでのカバレッジは新しいコードパスを取得した際の入力値のみを表示している．
 <!-- Yamlの追記コードを説明 -->
+```yaml
+      # 2. カバレッジ計測
+      - name: Coverage Collection
+        run: |
+          mkdir -p crashes
+          # クラッシュファイルを退避
+          mv crash-* crashes/ || true
+          mv leak-* crashes/ || true
+          mv timeout-* crashes/ || true
+          
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          # Calculatorのコーパスでカバレッジ計測
+          coverage run --source=src fuzz/repro_coverage.py corpus_calc crashes
+          # StringCalculatorのコーパスでカバレッジ計測 (既存の結果に追加 -a)
+          # coverage run -a --source=src fuzz/repro_coverage.py corpus_str_calc crashes
+
+      # 3. HTMLレポート生成
+      - name: Generate Report
+        run: coverage html -d coverage-report
+
+
+
+```
+
+
 
 ## コーパスの取得
 ここでのコーパスは，新しいコードパスを取得した際の入力値のみが保存される．そのため，実際にはもっとたくさんの入力値が実行されている．
+```yaml
+      # 4. 成果物をまとめる
+      - name: Bundle Artifacts
+        run: |
+          mkdir -p fuzzing_results
+          mv coverage-report fuzzing_results/
+          # 両方のコーパスを成果物に含める
+          cp -r corpus_calc fuzzing_results/
+          # cp -r corpus_str_calc fuzzing_results/
+          cp -r crashes fuzzing_results/
 
+      # 5. アップロード (ZIPでダウンロード可能になります)
+      - name: Upload All Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-fuzzing-results
+          path: fuzzing_results/
+
+
+```
 
 ## Usage
 
