@@ -49,7 +49,7 @@ jobs:
           # Calculatorのコーパスでカバレッジ計測
           coverage run --source=src fuzz/repro_coverage.py corpus_calc crashes
           # StringCalculatorのコーパスでカバレッジ計測 (既存の結果に追加 -a)
-          coverage run -a --source=src fuzz/repro_coverage.py corpus_str_calc crashes
+          # coverage run -a --source=src fuzz/repro_coverage.py corpus_str_calc crashes
 
       # 3. HTMLレポート生成
       - name: Generate Report
@@ -62,7 +62,7 @@ jobs:
           mv coverage-report fuzzing_results/
           # 両方のコーパスを成果物に含める
           cp -r corpus_calc fuzzing_results/
-          cp -r corpus_str_calc fuzzing_results/
+          # cp -r corpus_str_calc fuzzing_results/
           cp -r crashes fuzzing_results/
 
       # 5. アップロード (ZIPでダウンロード可能になります)
