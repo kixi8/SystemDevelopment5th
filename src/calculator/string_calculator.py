@@ -36,29 +36,20 @@ class StringCalculator:
             IndexError: 配列アクセスに失敗した場合（意図的にチェックを省略）。
             InvalidInputException: If operands are outside the valid range.
         """
-        # 意図的なバグ/チェック漏れ: .strip() を省略し、前後の空白に弱い
-        # cleaned_expression = expression.strip() # ← 意図的に省略
 
-        # 意図的なバグ/チェック漏れ: parts が 3 要素であることの厳密なチェックを省略
-        # IndexError の脆弱性を残す
         parts = expression.split()
 
-        if len(parts) != 3: # ← 意図的に省略
-            raise InvalidExpressionException(f"Invalid expression format: {expression}")
-        
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
-        # try:
-        # 配列外参照 (IndexError) の脆弱性: parts の要素数が3未満の場合に発生する
-        a = float(parts[0]) 
-        op = parts[1]
-        b = float(parts[2])
-        
-        # except IndexError:
-        #     # parts の要素数が足りない場合に発生。本来なら InvalidExpressionException でラップすべき。
-        #     raise 
-        # except ValueError:
-        #     # 意図的な型チェック漏れ: 'a', 'b', 'op' のいずれかが float に変換できない場合に発生
-        #     raise InvalidExpressionException("Operands must be valid numbers.")
+        try:
+            a = float(parts[0]) 
+            op = parts[1]
+            b = float(parts[2])
+        except ValueError:
+            # 意図的な型チェック漏れ: 'a', 'b' のいずれかが float に変換できない場合に発生
+            raise InvalidExpressionException("Operands must be valid numbers.")
+        except IndexError:
+            # parts の要素数が足りない場合に発生。本来なら InvalidExpressionException でラップすべき。
+            raise InvalidExpressionException("Incomplete expression.")
 
         # 演算子の実行 (意図的な数値の大きさチェック漏れ: Calculator側に依存するが、
         # StringCalculator側でオペランドの妥当性（例: 巨大な数）をチェックすべき)
@@ -74,5 +65,5 @@ class StringCalculator:
             # 意図的な不完全性/バグ: モジュロ演算の引数に対する型チェック（整数であるべきかなど）を省略
             # また、Calculator側での実装が意図的に不完全である可能性も考慮する
             return self.calc.modulo(a, b)
-        # else:
-        #     raise InvalidExpressionException(f"Unsupported operator: {op}")
+        else:
+            raise InvalidExpressionException(f"Unsupported operator: {op}")
