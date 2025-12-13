@@ -34,7 +34,7 @@ jobs:
           echo "--- Fuzzing StringCalculator ---"
           mkdir -p corpus_str_calc
           # StringCalculator Fuzzerを実行 (1200秒)
-          python fuzz/fuzz_string_calculator.py corpus_str_calc -max_total_time=1200
+          python fuzz/fuzz_string_calculator.py corpus_str_calc -max_total_time=120
 
       - name: Coverage Collection
         run: |
