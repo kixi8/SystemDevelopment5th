@@ -1,85 +1,9 @@
-# # src/calculator/string_calculator.py
-
-# """
-# A string-based calculator module that processes simple arithmetic expressions.
-# """
-# from .calculator import Calculator, InvalidInputException
-
-
-# class InvalidExpressionException(Exception):
-#     """Exception raised when the string expression is invalid."""
-#     pass
-
-
-# class StringCalculator:
-#     """Processes simple expressions like 'a + b', 'a - b', etc."""
-
-#     def __init__(self):
-#         self.calc = Calculator()
-
-#     def calculate(self, expression: str):
-#         """
-#         Parses and calculates a simple expression (e.g., "5 + 3").
-
-#         Args:
-#             expression: The arithmetic expression string.
-
-#         Returns:
-#             The result of the calculation.
-
-#         Raises:
-#             InvalidExpressionException: If the expression is not in a supported format.
-#             ValueError: For division by zero.
-#             InvalidInputException: If operands are outside the valid range.
-#         """
-#         # 入力文字列の先頭/末尾の空白を除去 (バグ修正)
-#         cleaned_expression = expression.strip()
-        
-#         parts = cleaned_expression.split()
-
-#         if len(parts) != 3:
-#             raise InvalidExpressionException(f"Invalid expression format: {expression}")
-
-#         a_str = parts[0]
-#         op = parts[1]
-#         b_str = parts[2]
-        
-#         # 演算によって適切な型に変換 (バグ修正)
-#         try:
-#             if op in ('+', '-', '*', '%'):
-#                 # 整数演算
-#                 a_val = int(a_str)
-#                 b_val = int(b_str)
-#             elif op == '/':
-#                 # 浮動小数点数演算
-#                 a_val = float(a_str)
-#                 b_val = float(b_str)
-#             else:
-#                 a_val = float(a_str)
-#                 b_val = float(b_str)
-
-#         except ValueError:
-#             raise InvalidExpressionException("Operands must be valid numbers matching the operation type.")
-
-#         # 演算子の実行
-#         if op == '+':
-#             return self.calc.add(a_val, b_val)
-#         elif op == '-':
-#             return self.calc.subtract(a_val, b_val)
-#         elif op == '*':
-#             return self.calc.multiply(a_val, b_val)
-#         elif op == '/':
-#             return self.calc.divide(a_val, b_val)
-#         elif op == '%':
-#             # Modulo演算の不完全性を解消
-#             return self.calc.modulo(a_val, b_val)
-#         else:
-#             raise InvalidExpressionException(f"Unsupported operator: {op}")
-
+# string_calculator.py
 
 """
 A string-based calculator module that processes simple arithmetic expressions.
-NOTE: This implementation is intentionally incomplete/buggy for educational purposes.
+NOTE: This implementation is intentionally incomplete/buggy for educational purposes,
+      specifically lacking robustness against Index/Type/Size errors.
 """
 from .calculator import Calculator, InvalidInputException
 
@@ -98,37 +22,45 @@ class StringCalculator:
     def calculate(self, expression: str):
         """
         Parses and calculates a simple expression (e.g., "5 + 3").
-
+        
         Args:
             expression: The arithmetic expression string.
 
         Returns:
             The result of the calculation.
-            もし エラーなら
 
         Raises:
-            InvalidExpressionException: If the expression is not in a supported format.
+            InvalidExpressionException: If the expression is not in a supported format, 
+                                        or if operands are invalid.
             ValueError: For division by zero.
+            IndexError: 配列アクセスに失敗した場合（意図的にチェックを省略）。
             InvalidInputException: If operands are outside the valid range.
         """
-        # 式をスペースで区切ってオペランドと演算子を取得
-        # 意図的なバグ: 複数のスペースや不正な形式に対する堅牢性が低い
-        
+        # 意図的なバグ/チェック漏れ: .strip() を省略し、前後の空白に弱い
+        # cleaned_expression = expression.strip() # ← 意図的に省略
+
+        # 意図的なバグ/チェック漏れ: parts が 3 要素であることの厳密なチェックを省略
+        # IndexError の脆弱性を残す
         parts = expression.split()
 
-        # if len(parts) != 3:
+        # if len(parts) != 3: # ← 意図的に省略
         #     raise InvalidExpressionException(f"Invalid expression format: {expression}")
 
-        # オペランドの解析
+        # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
         try:
-            # ここではfloatで解析し、内部のCalculatorに渡す
-            a = float(parts[0])
+            # 配列外参照 (IndexError) の脆弱性: parts の要素数が3未満の場合に発生する
+            a = float(parts[0]) 
             op = parts[1]
             b = float(parts[2])
+        except IndexError:
+            # parts の要素数が足りない場合に発生。本来なら InvalidExpressionException でラップすべき。
+            raise 
         except ValueError:
+            # 意図的な型チェック漏れ: 'a', 'b', 'op' のいずれかが float に変換できない場合に発生
             raise InvalidExpressionException("Operands must be valid numbers.")
 
-        # 演算子の実行
+        # 演算子の実行 (意図的な数値の大きさチェック漏れ: Calculator側に依存するが、
+        # StringCalculator側でオペランドの妥当性（例: 巨大な数）をチェックすべき)
         if op == '+':
             return self.calc.add(a, b)
         elif op == '-':
@@ -138,7 +70,8 @@ class StringCalculator:
         elif op == '/':
             return self.calc.divide(a, b)
         elif op == '%':
-            # 意図的な不完全性/バグ: modulo演算を実装していない
-            raise InvalidExpressionException("Modulo operation (%) is not yet supported.")
+            # 意図的な不完全性/バグ: モジュロ演算の引数に対する型チェック（整数であるべきかなど）を省略
+            # また、Calculator側での実装が意図的に不完全である可能性も考慮する
+            return self.calc.modulo(a, b)
         else:
             raise InvalidExpressionException(f"Unsupported operator: {op}")
