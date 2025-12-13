@@ -104,6 +104,7 @@ class StringCalculator:
 
         Returns:
             The result of the calculation.
+            もし エラーなら
 
         Raises:
             InvalidExpressionException: If the expression is not in a supported format.
@@ -112,10 +113,11 @@ class StringCalculator:
         """
         # 式をスペースで区切ってオペランドと演算子を取得
         # 意図的なバグ: 複数のスペースや不正な形式に対する堅牢性が低い
+        
         parts = expression.split()
 
-        if len(parts) != 3:
-            raise InvalidExpressionException(f"Invalid expression format: {expression}")
+        # if len(parts) != 3:
+        #     raise InvalidExpressionException(f"Invalid expression format: {expression}")
 
         # オペランドの解析
         try:
