@@ -15,16 +15,10 @@ git clone https://github.com/Yutaro-Kashiwa/SystemDevelopment5th.git
 cd SystemDevelopment5th
 ```
 
-2. Create a virtual environment:
-```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
+2. 
 
-3. Install dependencies:
-```bash
-pip install pytest pytest-cov
-```
+<!--  -->
+
 
 ## Usage
 

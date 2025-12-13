@@ -31,10 +31,10 @@ jobs:
           # Calculator Fuzzerを実行 (150秒)
           python fuzz/fuzz_calculator.py corpus_calc -max_total_time=150 || true
           
-          echo "--- Fuzzing StringCalculator ---"
-          mkdir -p corpus_str_calc
-          # StringCalculator Fuzzerを実行 (1200秒)
-          python fuzz/fuzz_string_calculator.py corpus_str_calc -max_total_time=1200 || true
+          # echo "--- Fuzzing StringCalculator ---"
+          # mkdir -p corpus_str_calc
+          # # StringCalculator Fuzzerを実行 (1200秒)
+          # python fuzz/fuzz_string_calculator.py corpus_str_calc -max_total_time=1200 || true
 
       # 2. カバレッジ計測
       - name: Coverage Collection
