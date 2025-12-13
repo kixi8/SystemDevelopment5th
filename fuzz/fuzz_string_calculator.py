@@ -31,13 +31,13 @@ def TestOneInput(data):
       # StringCalculatorのcalculateメソッドを実行
       calc.calculate(expression)
             
-   except (InvalidInputException, InvalidExpressionException):
+   # except (InvalidInputException, InvalidExpressionException):
       # InvalidExpressionException: 
       # 1. 不正な式形式（要素数が3ではない、修正前）
       # 2. 修正後の float() 変換失敗
       # 3. 修正後の演算子不正（もし実装するなら）
       # InvalidInputException: Calculator側での入力範囲外
-      pass
+      # pass
    # ValueErrorは0除算のみになるので、講義の意図に合わせてこれを「仕様通り」として除外
    except (ValueError):
       pass 
