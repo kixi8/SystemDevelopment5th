@@ -37,6 +37,7 @@ class StringCalculator:
             InvalidInputException: If operands are outside the valid range.
         """
 
+
         parts = expression.split()
 
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
