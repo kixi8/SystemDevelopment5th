@@ -79,6 +79,13 @@ Fork
 
 ```
 
+## Fuzzingの継続
+          python fuzz/fuzz_calculator.py corpus_calc -max_total_time=150 || true
+のようにすることで継続可能
+ただし，エラーに気付けないおそれもある．
+
+# 
+
 ## Usage
 
 ### Basic Usage
