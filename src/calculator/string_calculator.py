@@ -44,18 +44,19 @@ class StringCalculator:
         # 意図的なバグ/チェック漏れ: .strip() を省略し、前後の空白に弱い
         # cleaned_expression = expression.strip() # ← 意図的に省略
 
+        
         parts = expression.split()
 
         # fixed: 要素数チェックを追加
         if len(parts) != 3:
             raise InvalidExpressionException("Expression must be in the format: 'a op b'.")
 
+
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
         try:
-            
-            a = float(parts[0]) 
-            op = parts[1]
+            a = float(parts[0])
             b = float(parts[2])
+            op = parts[1]
         except ValueError:
             # 意図的な型チェック漏れ: 'a', 'b' のいずれかが float に変換できない場合に発生
             raise ImproperErrorHandlingException("Operands must be valid numbers.")
