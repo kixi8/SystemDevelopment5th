@@ -45,10 +45,10 @@ class StringCalculator:
             return self.calc.multiply(val_a, val_b)
         elif op == '/':
             return self.calc.divide(val_a, val_b)
-        else:
-        # elif op == '%':
+        elif op == '%':
             return self.calc.modulo(val_a, val_b)
+        else:
             # Bug 3: 未対応の演算子が来た場合に生の Exception を投げる
             # これは "Uncaught Exception" としてFuzzerにクラッシュ判定される．
             # 本来は InvalidExpressionException にラップすべき箇所．
-            raise Exception(f"System Error: Unsupported operator '{op}'")
+            raise InvalidExpressionException(f"System Error: Unsupported operator '{op}'")

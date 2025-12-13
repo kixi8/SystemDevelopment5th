@@ -26,15 +26,15 @@ jobs:
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
           
-          # echo "--- Fuzzing Calculator ---"
-          # mkdir -p corpus_calc
-          # # Calculator Fuzzerを実行 (150秒)
-          # python fuzz/fuzz_calculator.py corpus_calc -max_total_time=120
+          echo "--- Fuzzing Calculator ---"
+          mkdir -p corpus_calc
+          # Calculator Fuzzerを実行 (150秒)
+          python fuzz/fuzz_calculator.py corpus_calc -max_total_time=1200
           
           echo "--- Fuzzing StringCalculator ---"
           mkdir -p corpus_str_calc
           # StringCalculator Fuzzerを実行 (1200秒)
-          python fuzz/fuzz_string_calculator.py corpus_str_calc -max_total_time=120
+          python fuzz/fuzz_string_calculator.py corpus_str_calc -max_total_time=1200
 
 
 
@@ -57,7 +57,7 @@ jobs:
           # Calculatorのコーパスでカバレッジ計測
           coverage run --source=src fuzz/repro_coverage.py corpus_calc crashes
           # StringCalculatorのコーパスでカバレッジ計測 (既存の結果に追加 -a)
-          # coverage run -a --source=src fuzz/repro_coverage.py corpus_str_calc crashes
+          coverage run -a --source=src fuzz/repro_coverage.py corpus_str_calc crashes
 
       # 3. HTMLレポート生成
       - name: Generate Report
@@ -70,7 +70,7 @@ jobs:
           mv coverage-report fuzzing_results/
           # 両方のコーパスを成果物に含める
           cp -r corpus_calc fuzzing_results/
-          # cp -r corpus_str_calc fuzzing_results/
+          cp -r corpus_str_calc fuzzing_results/
           cp -r crashes fuzzing_results/
 
       # 5. アップロード (ZIPでダウンロード可能になります)
