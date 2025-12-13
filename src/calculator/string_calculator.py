@@ -20,14 +20,21 @@ class StringCalculator:
         # Fuzzerは "123" や "" といった入力を生成し、ここでクラッシュさせる
         parts = expression.split(" ")
         
+        if len(parts) != 3:
+            raise InvalidExpressionException("Invalid expression format. Expected format: 'Number Operator Number'")
+        
         # Bug 2: 数値変換失敗時に ValueError が発生する
         # calculator.py の仕様上、ValueError は「0除算」用．
         # ここでのパースエラー(ValueError)をキャッチしないと、
         # Fuzzerの設定(ValueErrorを無視)によってはバグが見過ごされる、
         # あるいは意図しないクラッシュとして扱われる可能性がある．
-        val_a = float(parts[0])
+        try:
+            val_a = float(parts[0])
+            val_b = float(parts[2])
+        except ValueError:
+            raise InvalidExpressionException("Operands must be valid numbers")        
+            
         op = parts[1]
-        val_b = float(parts[2])
 
         # 分かりやすい if-elif 構造に変更
         if op == '+':
@@ -38,11 +45,9 @@ class StringCalculator:
             return self.calc.multiply(val_a, val_b)
         elif op == '/':
             return self.calc.divide(val_a, val_b)
-        elif op == '%':
-            # 意図的な不完全性: モジュロ演算の実装．
-            # Calculator側で実装されていれば動くが、入力値によってはエラーになる可能性がある
-            return self.calc.modulo(val_a, val_b)
         else:
+        # elif op == '%':
+            return self.calc.modulo(val_a, val_b)
             # Bug 3: 未対応の演算子が来た場合に生の Exception を投げる
             # これは "Uncaught Exception" としてFuzzerにクラッシュ判定される．
             # 本来は InvalidExpressionException にラップすべき箇所．
