@@ -45,7 +45,7 @@ class StringCalculator:
 
         if len(parts) != 3: # ← 意図的に省略
             raise InvalidExpressionException(f"Invalid expression format: {expression}")
-
+        
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
         # try:
         # 配列外参照 (IndexError) の脆弱性: parts の要素数が3未満の場合に発生する
