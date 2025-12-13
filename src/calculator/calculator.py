@@ -91,5 +91,7 @@ class Calculator:
             InvalidInputException: If any input is outside valid range
             ValueError: If b is zero
         """
+        if b == 0:
+            raise ValueError("Cannot modulo by zero")
         return a % b
 

@@ -25,10 +25,16 @@ Fork
 3. ログを見てみる
 「Done 25731955 runs in 151 second(s)」とか書いてあるのが実行時間，すごいね
 
-4. modulo機能を追加してみる（コメントアウトを解除するだけでいい）
+4. modulo機能を追加して実行してみる（コメントアウトを解除するだけでいい）
 src/calculator/calculator.py
+/Users/tatsuya-shi/research/SystemDevelopment5th/fuzz/fuzz_calculator.py
+
+エラーが出るね
+ログを見て直してみて
+SystemDevelopment5th/fuzz/fuzz_calculator.py のようにprintを追加することでデバッグもどきができる
 
 
+5. 
 
 # おまけ
 ## カバレッジレポートの生成方法
