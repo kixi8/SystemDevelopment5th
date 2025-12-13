@@ -77,4 +77,19 @@ class Calculator:
         return a / b
 
     # TODO: Implement modulo operation
+    def modulo(self, a, b):
+        """Calculate a modulo b.
+
+        Args:
+            a: First number
+            b: Second number
+
+        Returns:
+            Remainder of a divided by b
+
+        Raises:
+            InvalidInputException: If any input is outside valid range
+            ValueError: If b is zero
+        """
+        return a % b
 
