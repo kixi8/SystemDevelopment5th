@@ -47,8 +47,8 @@ class StringCalculator:
         parts = expression.split()
 
         # fixed: 要素数チェックを追加
-        # if len(parts) != 3:
-        #     raise InvalidExpressionException("Expression must be in the format: 'a op b'.")
+        if len(parts) != 3:
+            raise InvalidExpressionException("Expression must be in the format: 'a op b'.")
 
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
         try:
