@@ -47,17 +47,18 @@ class StringCalculator:
             raise InvalidExpressionException(f"Invalid expression format: {expression}")
 
         # オペランドの解析 (意図的な型チェック漏れ: float()でまとめて変換)
-        try:
-            # 配列外参照 (IndexError) の脆弱性: parts の要素数が3未満の場合に発生する
-            a = float(parts[0]) 
-            op = parts[1]
-            b = float(parts[2])
-        except IndexError:
-            # parts の要素数が足りない場合に発生。本来なら InvalidExpressionException でラップすべき。
-            raise 
-        except ValueError:
-            # 意図的な型チェック漏れ: 'a', 'b', 'op' のいずれかが float に変換できない場合に発生
-            raise InvalidExpressionException("Operands must be valid numbers.")
+        # try:
+        # 配列外参照 (IndexError) の脆弱性: parts の要素数が3未満の場合に発生する
+        a = float(parts[0]) 
+        op = parts[1]
+        b = float(parts[2])
+        
+        # except IndexError:
+        #     # parts の要素数が足りない場合に発生。本来なら InvalidExpressionException でラップすべき。
+        #     raise 
+        # except ValueError:
+        #     # 意図的な型チェック漏れ: 'a', 'b', 'op' のいずれかが float に変換できない場合に発生
+        #     raise InvalidExpressionException("Operands must be valid numbers.")
 
         # 演算子の実行 (意図的な数値の大きさチェック漏れ: Calculator側に依存するが、
         # StringCalculator側でオペランドの妥当性（例: 巨大な数）をチェックすべき)
