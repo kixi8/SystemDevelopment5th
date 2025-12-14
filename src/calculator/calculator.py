@@ -77,21 +77,21 @@ class Calculator:
         return a / b
 
     # TODO: Implement modulo operation
-    # def modulo(self, a, b):
-    #     """Calculate a modulo b.
+    def modulo(self, a, b):
+        """Calculate a modulo b.
 
-    #     Args:
-    #         a: First number
-    #         b: Second number
+        Args:
+            a: First number
+            b: Second number
 
-    #     Returns:
-    #         Remainder of a divided by b
+        Returns:
+            Remainder of a divided by b
 
-    #     Raises:
-    #         InvalidInputException: If any input is outside valid range
-    #         ValueError: If b is zero
-    #     """
-    #     # if b == 0:
-    #     #     raise ValueError("Cannot modulo by zero")
-    #     return a % b
+        Raises:
+            InvalidInputException: If any input is outside valid range
+            ValueError: If b is zero
+        """
+        # if b == 0:
+        #     raise ValueError("Cannot modulo by zero")
+        return a % b
 
