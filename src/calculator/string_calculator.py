@@ -21,19 +21,13 @@ class StringCalculator:
         # Fuzzerは "123" や "" といった入力を生成し、ここでクラッシュさせる
         parts = expression.split(" ")
         
-        if len(parts) != 3:
-            raise InvalidExpressionException("Invalid expression format. Expected format: 'Number Operator Number'")
-        
         # Bug 2: 数値変換失敗時に ValueError が発生する
         # calculator.py の仕様上、ValueError は「0除算」用．
         # ここでのパースエラー(ValueError)をキャッチしないと、
         # Fuzzerの設定(ValueErrorを無視)によってはバグが見過ごされる、
         # あるいは意図しないクラッシュとして扱われる可能性がある．
-        try:
-            val_a = float(parts[0])
-            val_b = float(parts[2])
-        except ValueError:
-            raise InvalidExpressionException("Operands must be valid numbers")        
+        val_a = float(parts[0])
+        val_b = float(parts[2])
             
         op = parts[1]
 
