@@ -16,6 +16,7 @@ class StringCalculator:
         Format: "Number Operator Number" (例: "10 + 2.5")
         """
         
+        
         # Bug 1: 入力が空、あるいは区切り文字がない場合に IndexError (またはAttributeError) が発生する
         # Fuzzerは "123" や "" といった入力を生成し、ここでクラッシュさせる
         parts = expression.split(" ")
