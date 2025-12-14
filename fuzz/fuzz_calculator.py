@@ -37,8 +37,8 @@ def TestOneInput(data):
       elif op == 3:
          calc.divide(val_a, val_b)
       # TODO: Implement modulo operation
-      # elif op == 4:
-      #    calc.modulo(val_a, val_b)
+      elif op == 4:
+         calc.modulo(val_a, val_b)
 
             
    except (ValueError, InvalidInputException):
